@@ -1,0 +1,57 @@
+
+mysql> create database author;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> use author;
+Database changed
+mysql> create table author(author_id int(10) primary key,author_name varchar(10),author_birthyear int(10),author_deathyear int(10));
+Query OK, 0 rows affected, 3 warnings (0.27 sec)
+
+mysql>  desc author;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| author_id        | int         | NO   | PRI | NULL    |       |
+| author_name      | varchar(10) | YES  |     | NULL    |       |
+| author_birthyear | int         | YES  |     | NULL    |       |
+| author_deathyear | int         | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.14 sec)
+
+mysql> create database book;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table book(book_id int(10) primary key,author_id int(10),foreign key(author_id) references author(author_id),title varchar(20),publishe_year date,publishing_house varchar(20),rating decimal(5,2));
+Query OK, 0 rows affected, 2 warnings (0.09 sec)
+
+mysql> desc book;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| book_id          | int          | NO   | PRI | NULL    |       |
+| author_id        | int          | YES  | MUL | NULL    |       |
+| title            | varchar(20)  | YES  |     | NULL    |       |
+| publishe_year    | date         | YES  |     | NULL    |       |
+| publishing_house | varchar(20)  | YES  |     | NULL    |       |
+| rating           | decimal(5,2) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create database adaptation;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table adaptation(book_id int(10),foreign key(book_id)references book(book_id),type varchar(10),title varchar(20),release_year date,rating decimal(5,2));
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+
+mysql> desc adaptation;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| book_id      | int          | YES  | MUL | NULL    |       |
+| type         | varchar(10)  | YES  |     | NULL    |       |
+| title        | varchar(20)  | YES  |     | NULL    |       |
+| release_year | date         | YES  |     | NULL    |       |
+| rating       | decimal(5,2) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
